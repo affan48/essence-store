@@ -10,7 +10,7 @@ import {
   Clock,
 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { getProduct, products } from "@/data/products";
+import { getProduct, products, type Product } from "@/data/products";
 import { useCart } from "@/components/site/CartProvider";
 import { ProductCard } from "@/components/site/ProductCard";
 
@@ -47,9 +47,10 @@ export const Route = createFileRoute("/products/$id")({
 
 function ProductPage() {
   const { product } = Route.useLoaderData();
+  const p: Product = product;
   const { addToCart } = useCart();
-  const [size, setSize] = useState(product.sizes[Math.floor(product.sizes.length / 2)]);
-  const [color, setColor] = useState(product.colors[0].name);
+  const [size, setSize] = useState(p.sizes[Math.floor(p.sizes.length / 2)]);
+  const [color, setColor] = useState(p.colors[0].name);
   const [qty, setQty] = useState(1);
   const [timeLeft, setTimeLeft] = useState({ h: 12, m: 24, s: 18 });
 
@@ -74,7 +75,7 @@ function ProductPage() {
     return () => clearInterval(t);
   }, []);
 
-  const recs = products.filter((p) => p.id !== product.id).slice(0, 4);
+  const recs = products.filter((x) => x.id !== p.id).slice(0, 4);
 
   return (
     <div className="px-6 md:px-10 pt-10 pb-24">
