@@ -4,7 +4,6 @@ import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 import tailwindcss from "@tailwindcss/vite";
-import { cloudflare } from "@cloudflare/vite-plugin";
 
 export default defineConfig(({ command }) => ({
   plugins: [
@@ -15,6 +14,5 @@ export default defineConfig(({ command }) => ({
     }),
     viteReact(),
     tailwindcss(),
-    ...(command === 'build' ? [cloudflare()] : [])
   ],
 }));
