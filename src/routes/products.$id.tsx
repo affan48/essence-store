@@ -23,9 +23,9 @@ export const Route = createFileRoute("/products/$id")({
   head: ({ loaderData }) => ({
     meta: loaderData
       ? [
-          { title: `${loaderData.product.name} · Avant-Garde` },
-          { name: "description", content: loaderData.product.description },
-          { property: "og:image", content: loaderData.product.image },
+          { title: `${loaderData.p.name} · Avant-Garde` },
+          { name: "description", content: loaderData.p.description },
+          { property: "og:image", content: loaderData.p.image },
         ]
       : [],
   }),
@@ -84,7 +84,7 @@ function ProductPage() {
         <span>/</span>
         <Link to="/shop">Shop</Link>
         <span>/</span>
-        <span className="text-foreground">{product.name}</span>
+        <span className="text-foreground">{p.name}</span>
       </nav>
 
       <div className="grid lg:grid-cols-[1.4fr_1fr] gap-12">
@@ -92,33 +92,33 @@ function ProductPage() {
         <div className="grid grid-cols-2 gap-3">
           <div className="col-span-2 aspect-[4/5] overflow-hidden rounded-xl bg-card group">
             <img
-              src={product.image}
-              alt={product.name}
+              src={p.image}
+              alt={p.name}
               className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           </div>
           <div className="aspect-square overflow-hidden rounded-xl bg-card">
-            <img src={product.altImage} alt="" className="h-full w-full object-cover" />
+            <img src={p.altImage} alt="" className="h-full w-full object-cover" />
           </div>
           <div className="aspect-square overflow-hidden rounded-xl bg-card">
-            <img src={product.image} alt="" className="h-full w-full object-cover scale-150" />
+            <img src={p.image} alt="" className="h-full w-full object-cover scale-150" />
           </div>
         </div>
 
         {/* Sticky Buy Panel */}
         <div className="lg:sticky lg:top-28 lg:self-start">
           <span className="text-[10px] uppercase tracking-[0.3em] text-foreground/40 block mb-3">
-            {product.category}
+            {p.category}
           </span>
           <h1 className="font-serif text-4xl md:text-5xl mb-4 tracking-tight">
-            {product.name}
+            {p.name}
           </h1>
           <div className="flex items-baseline gap-4 mb-2">
-            <span className="text-2xl font-serif">${product.price.toLocaleString()}</span>
-            <span className="text-xs text-foreground/40">or 4× ${Math.round(product.price / 4)} with Affirm</span>
+            <span className="text-2xl font-serif">${p.price.toLocaleString()}</span>
+            <span className="text-xs text-foreground/40">or 4× ${Math.round(p.price / 4)} with Affirm</span>
           </div>
           <p className="text-foreground/60 leading-relaxed mt-4 mb-8">
-            {product.description}
+            {p.description}
           </p>
 
           {/* Countdown */}
@@ -144,7 +144,7 @@ function ProductPage() {
               </span>
             </div>
             <div className="flex gap-2">
-              {product.colors.map((c) => (
+              {p.colors.map((c) => (
                 <button
                   key={c.name}
                   onClick={() => setColor(c.name)}
@@ -169,7 +169,7 @@ function ProductPage() {
               </button>
             </div>
             <div className="grid grid-cols-5 gap-2">
-              {product.sizes.map((s) => (
+              {p.sizes.map((s) => (
                 <button
                   key={s}
                   onClick={() => setSize(s)}
@@ -197,10 +197,10 @@ function ProductPage() {
               </button>
             </div>
             <button
-              onClick={() => addToCart({ productId: product.id, size, color, qty })}
+              onClick={() => addToCart({ productId: p.id, size, color, qty })}
               className="flex-1 bg-foreground text-background py-4 text-[11px] uppercase tracking-[0.2em] font-semibold rounded-full hover:bg-foreground/90"
             >
-              Add to Bag · ${(product.price * qty).toLocaleString()}
+              Add to Bag · ${(p.price * qty).toLocaleString()}
             </button>
             <button className="border border-border rounded-full px-4" aria-label="Wishlist">
               <Heart className="h-4 w-4" />
