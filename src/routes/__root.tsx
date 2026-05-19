@@ -4,11 +4,8 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
-  HeadContent,
-  Scripts,
 } from "@tanstack/react-router";
 
-import appCss from "../styles.css?url";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { CartProvider } from "@/components/site/CartProvider";
@@ -79,56 +76,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Avant-Garde — The Winter Archive" },
-      {
-        name: "description",
-        content:
-          "Avant-Garde is a luxury fashion house designing monochrome layering, sculptural silhouettes, and quiet objects from our Antwerp atelier.",
-      },
-      { name: "author", content: "Avant-Garde International" },
-      { property: "og:title", content: "Avant-Garde — The Winter Archive" },
-      {
-        property: "og:description",
-        content:
-          "Monochrome layering and sculptural silhouettes for the modern wanderer.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "Avant-Garde — The Winter Archive" },
-      { name: "description", content: "Aura Commerce is a premium, modern eCommerce website prototype with full page integration." },
-      { property: "og:description", content: "Aura Commerce is a premium, modern eCommerce website prototype with full page integration." },
-      { name: "twitter:description", content: "Aura Commerce is a premium, modern eCommerce website prototype with full page integration." },
-    ],
-    links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-    ],
-  }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
-
-function RootShell({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
