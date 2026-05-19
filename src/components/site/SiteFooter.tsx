@@ -31,7 +31,7 @@ export function SiteFooter() {
             label="Support"
             links={[
               { to: "/contact", label: "Contact" },
-              { to: "/orders/AG-204881", label: "Order Tracking" },
+              { to: "/orders/$id", params: { id: "AG-204881" }, label: "Order Tracking" },
               { to: "/account", label: "Returns" },
               { to: "/contact", label: "Shipping" },
             ]}
@@ -64,7 +64,7 @@ function FooterCol({
   links,
 }: {
   label: string;
-  links: { to: string; label: string }[];
+  links: { to: string; params?: Record<string, string>; label: string }[];
 }) {
   return (
     <div className="flex flex-col gap-4 text-[10px] uppercase tracking-widest">
@@ -72,7 +72,8 @@ function FooterCol({
       {links.map((l) => (
         <Link
           key={l.label}
-          to={l.to}
+          to={l.to as string}
+          params={l.params as never}
           className="text-foreground/80 hover:text-foreground"
         >
           {l.label}
